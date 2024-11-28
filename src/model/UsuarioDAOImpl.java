@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class UsuarioDAOImpl implements UsuarioDAO {
 
@@ -18,10 +19,12 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		
 		String sql = "SELECT * FROM usuario WHERE usuarioemail='" + usuarioemail + "';";
 
-        try (Connection connection = Conexao.getConexao();
-             PreparedStatement stmt = connection.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
+        try {
 
+        	Connection connection = Conexao.getConexao();
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+        	
             while (rs.next()) {
                 Usuario usuario = new Usuario(rs.getInt("idusuario"), rs.getString("usuarionome"), rs.getString("usuarioemail"), rs.getString("usuariosenha"), rs.getInt("usuariostatus"));
                 return usuario;
@@ -43,6 +46,32 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	public boolean inserirUsuario(Usuario usuario) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public ArrayList<Usuario> getAllUsuarios() {
+		// TODO Auto-generated method stub
+		
+		String sql = "SELECT * FROM usuario;";
+		
+		Conexao.testConnection();
+		
+		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+
+        try {
+        	Connection connection = Conexao.getConexao();
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Usuario usuario = new Usuario(rs.getInt("idusuario"), rs.getString("usuarionome"), rs.getString("usuarioemail"), rs.getString("usuariosenha"), rs.getInt("usuariostatus"));
+                usuarios.add(usuario);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+		
+		return usuarios;
 	}
 
 }
