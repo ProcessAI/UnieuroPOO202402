@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 import controller.ControllerLogin;
 
@@ -36,6 +37,8 @@ public class TelaLogin extends JFrame{
         
         loginButton = new JButton("Login");
         
+        JFrame telalogin = this;
+        
         // Ação do botão de login
         loginButton.addActionListener(new ActionListener() {
             @Override
@@ -45,9 +48,19 @@ public class TelaLogin extends JFrame{
                 
                 ControllerLogin control = new ControllerLogin();
                 if(control.validarLogin(username, password))
+                {
                 	JOptionPane.showMessageDialog(null, "Login bem-sucedido!");
+                	SwingUtilities.invokeLater(new Runnable() {
+                        public void run() {
+                            new TelaUsuario();
+                        }
+                    });
+                }
                 else
                 	JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos.");
+                
+                telalogin.dispose();
+                //telalogin.setVisible(false);
                 
                 // Aqui você pode adicionar a lógica de validação
                 /*if (username.equals("admin") && password.equals("admin")) {
@@ -68,5 +81,6 @@ public class TelaLogin extends JFrame{
         
         add(panel);
 	}
+
 
 }
