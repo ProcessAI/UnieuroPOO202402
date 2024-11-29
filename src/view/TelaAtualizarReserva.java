@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class TelaAtualizarReserva extends JPanel {
 
-    public TelaAtualizarReserva(JFrame parent) {
+    public TelaAtualizarReserva() {
         setLayout(new GridLayout(4, 2, 10, 10));
 
         JLabel lblIdReserva = new JLabel("ID da Reserva:");
