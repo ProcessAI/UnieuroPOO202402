@@ -3,7 +3,6 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class TelaPrincipalReserva extends JFrame {
 
@@ -27,51 +26,32 @@ public class TelaPrincipalReserva extends JFrame {
         JButton btnReserva = new JButton("Nova Reserva");
         JButton btnListaReservas = new JButton("Listar Reservas");
         JButton btnCancelarReserva = new JButton("Cancelar Reserva");
+        JButton btnAtualizarReserva = new JButton("Atualizar Reserva");
 
         menuPanel.add(btnReserva);
         menuPanel.add(btnListaReservas);
+        menuPanel.add(btnAtualizarReserva);
         menuPanel.add(btnCancelarReserva);
         add(menuPanel, BorderLayout.NORTH);
 
-        // Adicionando telas à CardLayout
-        TelaReserva telaReserva = new TelaReserva(); // Certifique-se que esta tela seja um JPanel
-        TelaListarReservas telaListaReservas = new TelaListarReservas(); // Certifique-se que esta tela seja um JPanel
-        TelaCancelarReserva telaCancelarReserva = new TelaCancelarReserva(); // Certifique-se que esta tela seja um JPanel
-
-        cardPanel.add(telaReserva, "Reserva"); // Tela de Reserva
-        cardPanel.add(telaListaReservas, "ListaReservas"); // Tela de Listar Reservas
-        cardPanel.add(telaCancelarReserva, "CancelarReserva"); // Tela de Cancelar Reserva
+        // Adicionando telas ao CardLayout
+        cardPanel.add(new TelaReserva(), "Reserva");
+        cardPanel.add(new TelaListarReservas(), "ListaReservas");
+        cardPanel.add(new TelaAtualizarReserva(), "AtualizarReserva");
+        cardPanel.add(new TelaCancelarReserva(), "CancelarReserva");
+        
 
         // Ação dos botões de navegação
-        btnReserva.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardPanel, "Reserva");
-            }
-        });
-
-        btnListaReservas.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardPanel, "ListaReservas");
-            }
-        });
-
-        btnCancelarReserva.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardPanel, "CancelarReserva");
-            }
-        });
+        btnReserva.addActionListener(e -> cardLayout.show(cardPanel, "Reserva"));
+        btnListaReservas.addActionListener(e -> cardLayout.show(cardPanel, "ListaReservas"));
+        btnCancelarReserva.addActionListener(e -> cardLayout.show(cardPanel, "CancelarReserva"));
+        btnAtualizarReserva.addActionListener(e -> cardLayout.show(cardPanel, "AtualizarReserva"));
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                TelaPrincipalReserva telaPrincipal = new TelaPrincipalReserva();
-                telaPrincipal.setVisible(true);
-            }
+        SwingUtilities.invokeLater(() -> {
+            TelaPrincipalReserva telaPrincipal = new TelaPrincipalReserva();
+            telaPrincipal.setVisible(true);
         });
     }
 }
