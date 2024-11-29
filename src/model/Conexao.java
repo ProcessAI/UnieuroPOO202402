@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 public class Conexao {
 
-	private static final String URL = "jdbc:postgresql://localhost:5432/biblioteca";
+	private static final String URL = "jdbc:postgresql://localhost:5433/biblioteca";
     private static final String USER = "postgres";
-    private static final String PASSWORD = "123456";
+    private static final String PASSWORD = "02122004d";
     
     //sigleton
     private static Connection conexao = null;

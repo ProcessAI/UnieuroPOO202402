@@ -1,10 +1,9 @@
 // src/controller/CategoriaController.java
 package controller;
 
+import java.util.List;
 import model.Categoria;
 import model.CategoriaDAO;
-
-import java.util.List;
 
 public class CategoriaController {
     private CategoriaDAO categoriaDAO;

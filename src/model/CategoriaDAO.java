@@ -1,23 +1,19 @@
 // src/model/CategoriaDAO.java
 package model;
 
-import util.DatabaseConnection;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CategoriaDAO {
-    private Connection connection;
 
-    public CategoriaDAO() {
-        this.connection = DatabaseConnection.getConnection();
-    }
 
     public void adicionarCategoria(Categoria categoria) {
-        String sql = "INSERT INTO categorias (nome_categoria, descricao) VALUES (?, ?)";
-
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        String sql = "INSERT INTO categoria (nome_categoria, descricao) VALUES (?, ?)";
+        Connection connection = Conexao.getConexao();
+        try {
+        PreparedStatement stmt = connection.prepareStatement(sql);
+  
             stmt.setString(1, categoria.getNomeCategoria());
             stmt.setString(2, categoria.getDescricao());
             stmt.executeUpdate();
@@ -27,8 +23,8 @@ public class CategoriaDAO {
     }
 
     public void atualizarCategoria(Categoria categoria) {
-        String sql = "UPDATE categorias SET nome_categoria = ?, descricao = ? WHERE id_categoria = ?";
-
+        String sql = "UPDATE categoria SET nome_categoria = ?, descricao = ? WHERE id_categoria = ?";
+        Connection connection = Conexao.getConexao();
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, categoria.getNomeCategoria());
             stmt.setString(2, categoria.getDescricao());
@@ -41,8 +37,8 @@ public class CategoriaDAO {
 
     // Deleta uma categoria pelo ID
     public void deletarCategoria(int idCategoria) {
-        String sql = "DELETE FROM categorias WHERE id_categoria = ?";
-
+        String sql = "DELETE FROM categoria WHERE id_categoria = ?";
+        Connection connection = Conexao.getConexao();
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, idCategoria);
             stmt.executeUpdate();
@@ -53,10 +49,18 @@ public class CategoriaDAO {
 
     // Lista categorias e seus livros
     public List<Categoria> listarCategoriasComLivros() {
-        String sql = "SELECT c.id_categoria, c.nome_categoria, c.descricao, l.id_livro, l.nome " +
-                     "FROM categorias c LEFT JOIN livro l ON c.id_categoria = l.id_categoria";
-        List<Categoria> categorias = new ArrayList<>();
+        String sql = "SELECT " +
+             "c.idcategoria AS id_categoria, " +
+             "c.nome AS nome_categoria, " +
+             "c.descricao, " +
+             "l.idlivro AS id_livro, " +
+             "l.nome AS nome_livro " +
+             "FROM public.categoria c " +
+             "LEFT JOIN public.livro l " +
+             "ON c.idcategoria = l.categoria_idcategoria;";
 
+        List<Categoria> categorias = new ArrayList<>();
+        Connection connection = Conexao.getConexao();
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
@@ -72,13 +76,13 @@ public class CategoriaDAO {
                 }
 
                 int idLivro = rs.getInt("id_livro");
-                if (idLivro != 0) {
+/*                 if (idLivro != 0) {
                     Livro livro = new Livro();
                     livro.setIdLivro(idLivro);
                     livro.setNome(rs.getString("nome"));
                     livro.setIdCategoria(idCategoria);
                     categoria.getLivros().add(livro);
-                }
+                } */
             }
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao listar categorias", e);
