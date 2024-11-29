@@ -1,6 +1,6 @@
 package controller;
 
-import dao.EditoraDAO;
+import model.EditoraDAO;
 import model.Editora;
 import view.EditoraView; 
 
