@@ -1,6 +1,6 @@
 import javax.swing.SwingUtilities;
 import model.Conexao;
-import view.CategoriaView;
+import view.*;
 
 public class BibliotecaMain {
 
@@ -19,8 +19,10 @@ public class BibliotecaMain {
 		SwingUtilities.invokeLater(() -> {
 /* 			TelaLogin login = new TelaLogin();
 			login.setVisible(true); */
-			CategoriaView telaCategoria = new CategoriaView();
-			telaCategoria.setVisible(true);
+/* 			CategoriaView telaCategoria = new CategoriaView();
+			telaCategoria.setVisible(true) */;
+			TelaMenu telaMenu = new TelaMenu();
+			telaMenu.setVisible(true);
 		});
 	}
 

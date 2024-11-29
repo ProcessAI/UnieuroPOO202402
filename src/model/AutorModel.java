@@ -1,4 +1,4 @@
-package autor;
+/* package autor;
 public class Autor {
     private int id;
     private String nome;
@@ -45,3 +45,4 @@ public class Autor {
         this.dataNascimento = dataNascimento;
     }
 }
+ */
