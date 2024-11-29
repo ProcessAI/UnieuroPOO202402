@@ -5,9 +5,13 @@ import java.util.ArrayList;
 
 public interface LivroDAO {
 
+
+
     Livro getLivroById(int idlivro) throws SQLException;
 
     ArrayList<Livro> getLivroByNome(String nome);
+
+    ArrayList<Livro> getAllLivros();
 
     boolean inserirLivro(Livro livro);
 

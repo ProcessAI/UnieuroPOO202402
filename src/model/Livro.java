@@ -1,17 +1,23 @@
 package model;
+
 public class Livro {
-    private int idlivro;
+    private Integer idlivro;
     private String nome;
     private int autor_idautor;
     private int editora_ideditora;
     private int categoria_idcategoria;
+    private int reserva_idreserva;
 
-    public Livro(int idlivro, String nome, int autor_idautor, int editora_ideditora, int categoria_idcategoria) {
+
+    public Livro() {
+    }
+    public Livro(Integer idlivro, String nome, int autor_idautor, int editora_ideditora, int categoria_idcategoria, int reservaIdreserva) {
         this.idlivro = idlivro;
         this.nome = nome;
         this.autor_idautor = autor_idautor;
         this.editora_ideditora = editora_ideditora;
         this.categoria_idcategoria = categoria_idcategoria;
+        reserva_idreserva = reservaIdreserva;
     }
 
     public int getIdlivro() {
@@ -54,4 +60,7 @@ public class Livro {
         this.categoria_idcategoria = categoria_idcategoria;
     }
 
+    public int getReserva_idreserva() { return reserva_idreserva; }
+
+    public void setReserva_idreserva(int reserva_idreserva) {this.reserva_idreserva = reserva_idreserva;}
 }
