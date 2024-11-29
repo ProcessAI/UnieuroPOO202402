@@ -24,12 +24,12 @@ public class TelaPrincipalReserva extends JFrame {
         // Criação do menu de navegação
         JPanel menuPanel = new JPanel();
         JButton btnReserva = new JButton("Nova Reserva");
-        JButton btnListaReservas = new JButton("Listar Reservas");
+        JButton btnListaReservas = new JButton("Listar Reservas Feitas");
         JButton btnCancelarReserva = new JButton("Cancelar Reserva");
         JButton btnAtualizarReserva = new JButton("Atualizar Reserva");
-
-        menuPanel.add(btnReserva);
+        
         menuPanel.add(btnListaReservas);
+        menuPanel.add(btnReserva);
         menuPanel.add(btnAtualizarReserva);
         menuPanel.add(btnCancelarReserva);
         add(menuPanel, BorderLayout.NORTH);
