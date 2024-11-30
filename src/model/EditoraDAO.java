@@ -1,26 +1,19 @@
-package dao;
+package model;
 
-import model.Editora;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class EditoraDAO {
 
-    private Connection connection;
 
     public EditoraDAO() {
-        try {
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/editora_POO", "postgres", "123456");
-            System.out.println("Conexão bem-sucedida!");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
-    
     public void addEditora(Editora editora) {
         String sql = "INSERT INTO editora (nome) VALUES (?)";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        Connection connection = Conexao.getConexao();
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, editora.getNome());
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -31,7 +24,10 @@ public class EditoraDAO {
     public List<Editora> listarEditoras() {
         List<Editora> editoras = new ArrayList<>();
         String sql = "SELECT * FROM editora";
-        try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+        Connection connection = Conexao.getConexao();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 int id = rs.getInt("ideditora");
                 String nome = rs.getString("nome");
@@ -45,7 +41,9 @@ public class EditoraDAO {
 
     public void updateEditora(Editora editora) {
         String sql = "UPDATE editora SET nome = ? WHERE ideditora = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        Connection connection = Conexao.getConexao();
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, editora.getNome());
             stmt.setInt(2, editora.getIdeditora());
             stmt.executeUpdate();
@@ -56,7 +54,9 @@ public class EditoraDAO {
 
     public void deleteEditora(int id) {
         String sql = "DELETE FROM editora WHERE ideditora = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        Connection connection = Conexao.getConexao();
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, id);
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -147,7 +147,3 @@ INSERT INTO editora (nome) VALUES ('Editora Nova História');
 INSERT INTO editora (nome) VALUES ('Editora Saber');
 INSERT INTO editora (nome) VALUES ('Editora Mundo Literário');
 */
-
-
-
-
